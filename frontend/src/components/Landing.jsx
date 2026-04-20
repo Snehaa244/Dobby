@@ -256,10 +256,10 @@ export default function Landing() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 lg:py-28 bg-white">
+      <section id="how-it-works" className="py-20 lg:py-28 bg-gradient-to-br from-white via-teal-50 to-indigo-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+            <h2 className="text-4xl font-extrabold tracking-tight text-indigo-700 sm:text-5xl drop-shadow-lg">
               Get started in minutes
             </h2>
             <p className="mt-4 text-lg text-slate-600">
@@ -267,17 +267,21 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="grid gap-8 lg:grid-cols-3">
+          <div className="grid gap-10 lg:grid-cols-3">
             {steps.map((step, index) => (
               <div key={index} className="relative">
-                <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300">
-                  <div className="text-6xl font-bold text-slate-100 mb-4">{step.number}</div>
-                  <h3 className="text-xl font-semibold text-slate-900 mb-3">{step.title}</h3>
-                  <p className="text-slate-600 leading-relaxed">{step.description}</p>
+                <div className="bg-white rounded-3xl p-10 border-2 border-indigo-100 shadow-md hover:shadow-xl hover:shadow-indigo-200/40 hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center">
+                  <div className={`text-5xl font-extrabold mb-4 rounded-full w-20 h-20 flex items-center justify-center mx-auto shadow-lg ${
+                    index === 0 ? 'bg-gradient-to-br from-pink-400 to-indigo-300 text-white' : index === 1 ? 'bg-gradient-to-br from-teal-400 to-indigo-200 text-white' : 'bg-gradient-to-br from-orange-400 to-pink-300 text-white'
+                  }`}>
+                    {step.number}
+                  </div>
+                  <h3 className="text-xl font-bold text-indigo-700 mb-3 drop-shadow-sm">{step.title}</h3>
+                  <p className="text-slate-600 leading-relaxed text-base font-medium">{step.description}</p>
                 </div>
                 {index < steps.length - 1 && (
                   <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2">
-                    <ChevronRight className="w-6 h-6 text-slate-300" />
+                    <ChevronRight className="w-7 h-7 text-indigo-200" />
                   </div>
                 )}
               </div>
