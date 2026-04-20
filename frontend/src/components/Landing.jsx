@@ -227,10 +227,10 @@ export default function Landing() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 lg:py-28 bg-slate-50">
+      <section id="features" className="py-20 lg:py-28 bg-gradient-to-br from-white via-indigo-50 to-pink-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+            <h2 className="text-4xl font-extrabold tracking-tight text-indigo-700 sm:text-5xl drop-shadow-lg">
               Everything you need to manage images
             </h2>
             <p className="mt-4 text-lg text-slate-600">
@@ -238,17 +238,17 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {features.map((feature, index) => (
               <div 
                 key={index}
-                className="group relative bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-lg hover:shadow-slate-200/50 hover:-translate-y-1 transition-all duration-300"
+                className="group relative bg-white rounded-3xl p-8 border-2 border-indigo-100 shadow-md hover:shadow-xl hover:shadow-indigo-200/40 hover:-translate-y-2 transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-400 via-pink-400 to-teal-300 flex items-center justify-center text-white text-xl mb-5 shadow-lg group-hover:scale-105 group-hover:rotate-2 transition-transform duration-300">
                   {feature.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">{feature.title}</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl font-bold text-indigo-700 mb-2 drop-shadow-sm">{feature.title}</h3>
+                <p className="text-slate-600 text-base leading-relaxed font-medium">{feature.description}</p>
               </div>
             ))}
           </div>

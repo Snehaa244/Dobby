@@ -18,38 +18,36 @@ export default function Navbar({ onAuthClick }) {
   return (
     <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${
       isScrolled 
-        ? 'bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-sm' 
-        : 'bg-transparent'
+        ? 'bg-white/95 backdrop-blur-xl border-b border-pink-200 shadow-lg' 
+        : 'bg-white'
     }`}>
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 shadow-lg shadow-indigo-500/25">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-teal-400 via-indigo-500 to-pink-500 shadow-lg shadow-teal-400/20">
-            <HardDrive className="text-white" size={20} />
-          </div>
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 via-indigo-500 to-teal-400 shadow-xl border-2 border-white">
+            <HardDrive className="text-white drop-shadow-lg" size={28} />
           </div>
           <div>
-            <p className={`text-lg font-semibold transition-colors ${isScrolled ? 'text-indigo-700' : 'text-indigo-700 lg:text-white'}`}>Drive</p>
-            <p className={`text-xs transition-colors ${isScrolled ? 'text-teal-500' : 'text-pink-400 lg:text-teal-400'}`}>Image Manager</p>
+            <p className={`text-2xl font-extrabold tracking-tight transition-colors ${isScrolled ? 'text-pink-600' : 'text-pink-600 lg:text-indigo-700'}`}>DobbyDrive</p>
+            <p className={`text-xs font-semibold tracking-wide transition-colors ${isScrolled ? 'text-indigo-500' : 'text-teal-500 lg:text-pink-400'}`}>Your Image Manager</p>
           </div>
         </div>
 
         {/* Desktop Navigation */}
-        <div className={`hidden items-center gap-8 text-sm font-medium md:flex ${isScrolled ? 'text-slate-600' : 'text-slate-600 lg:text-slate-300'}`}>
-          <a href="#features" className="hover:text-teal-500 transition-colors">Product</a>
-          <a href="#how-it-works" className="hover:text-pink-500 transition-colors">How it works</a>
+        <div className={`hidden items-center gap-8 text-base font-semibold md:flex ${isScrolled ? 'text-indigo-700' : 'text-pink-700 lg:text-indigo-700'}`}>
+          <a href="#features" className="hover:text-pink-500 transition-colors">Product</a>
+          <a href="#how-it-works" className="hover:text-teal-500 transition-colors">How it works</a>
           <a href="#" className="hover:text-orange-500 transition-colors">Pricing</a>
         </div>
 
         {/* Desktop Auth Buttons */}
         <div className="hidden md:flex items-center gap-3">
           {user ? (
-            <div className={`flex items-center gap-3 rounded-2xl border px-3 py-2 text-sm shadow-sm transition-all ${
+            <div className={`flex items-center gap-3 rounded-2xl border-2 px-3 py-2 text-base shadow-md transition-all ${
               isScrolled 
-                ? 'border-teal-200 bg-teal-50 text-teal-700' 
-                : 'border-white/20 bg-white/10 text-white'
+                ? 'border-pink-200 bg-white text-pink-700' 
+                : 'border-white/30 bg-white/20 text-indigo-700'
             }`}>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-orange-400 text-white font-bold">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-orange-400 text-white font-extrabold text-lg shadow-lg">
                 {user.name.charAt(0).toUpperCase()}
               </div>
               <span className="font-medium">{user.name}</span>
@@ -65,11 +63,7 @@ export default function Navbar({ onAuthClick }) {
             <>
               <button
                 onClick={() => onAuthClick('login')}
-                className={`px-5 py-2.5 text-sm font-semibold rounded-xl transition-all ${
-                  isScrolled 
-                    ? 'text-slate-600 hover:bg-slate-100' 
-                    : 'text-slate-600 lg:text-white lg:hover:bg-white/10'
-                }`}
+                className="px-5 py-2.5 text-sm font-semibold rounded-xl bg-slate-900 text-white shadow hover:bg-slate-800 transition-all"
               >
                 Sign In
               </button>
@@ -85,15 +79,15 @@ export default function Navbar({ onAuthClick }) {
 
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden p-2 rounded-xl hover:bg-slate-100 transition-colors"
+          className="md:hidden p-2 rounded-xl border-2 border-pink-200 bg-white shadow hover:bg-pink-50 transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          {isMobileMenuOpen ? <X size={24} className="text-slate-900" /> : <Menu size={24} className="text-slate-900" />}
+          {isMobileMenuOpen ? <X size={24} className="text-pink-600" /> : <Menu size={24} className="text-pink-600" />}
         </button>
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-200 shadow-lg transition-all duration-300 ${isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}>
+      <div className={`md:hidden absolute top-full left-0 right-0 bg-gradient-to-r from-pink-50 via-white to-teal-50 border-b border-pink-200 shadow-lg transition-all duration-300 ${isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}>
         <div className="px-4 py-6 space-y-4">
           <a href="#features" className="block text-base font-medium text-slate-600 hover:text-indigo-600">Product</a>
           <a href="#how-it-works" className="block text-base font-medium text-slate-600 hover:text-indigo-600">How it works</a>
