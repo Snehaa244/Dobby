@@ -255,6 +255,80 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* MCP Section */}
+      <section id="mcp" className="py-24 lg:py-32 bg-gradient-to-br from-indigo-50 via-white to-pink-50 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[120vw] h-80 bg-gradient-to-br from-pink-100/40 via-indigo-100/20 to-white/10 rounded-full blur-3xl opacity-60" />
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-2xl mx-auto mb-20">
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-gradient-to-r from-indigo-100 via-pink-100 to-teal-100 text-pink-600 font-semibold text-base shadow-md mb-4 animate-fade-in">
+              <Zap className="w-5 h-5 text-indigo-500 animate-pulse" />
+              <span>AI Automation with MCP</span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-indigo-600 to-teal-500 drop-shadow-lg mb-4">
+              What is MCP?
+            </h2>
+            <p className="mt-4 text-lg text-slate-600 font-medium">
+              <span className="font-semibold text-indigo-600">Model Context Protocol (MCP)</span> lets you connect AI agents and automation tools directly to DobbyDrive.<br className="hidden sm:block" />
+              Automate uploads, folder creation, and more—using natural language or code.
+            </p>
+          </div>
+          <div className="grid gap-10 md:grid-cols-2">
+            {/* How to use MCP */}
+            <div className="bg-white rounded-3xl p-10 border-2 border-pink-100 shadow-xl flex flex-col items-start relative overflow-hidden animate-fade-in">
+              <div className="absolute -top-8 -right-8 w-24 h-24 bg-gradient-to-br from-pink-200/40 to-indigo-200/40 rounded-full blur-2xl" />
+              <div className="flex items-center gap-3 mb-4">
+                <Zap className="w-8 h-8 text-pink-500 bg-pink-100 rounded-xl p-1.5 shadow" />
+                <h3 className="text-2xl font-bold text-indigo-700">How to use MCP</h3>
+              </div>
+              <ul className="space-y-4 mt-2 w-full">
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-green-500 mt-1" />
+                  <span className="text-slate-700 text-base font-medium">Connect your favorite AI agent or automation tool to the DobbyDrive MCP server.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-green-500 mt-1" />
+                  <span className="text-slate-700 text-base font-medium">Use natural language or code to automate tasks: <span className="text-pink-500 font-semibold">"Upload all images from my desktop to the 'Projects' folder"</span>.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-green-500 mt-1" />
+                  <span className="text-slate-700 text-base font-medium">Access all your folders, images, and storage analytics programmatically.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-green-500 mt-1" />
+                  <span className="text-slate-700 text-base font-medium">Integrate DobbyDrive with other apps, bots, or workflows—no manual clicking needed!</span>
+                </li>
+              </ul>
+            </div>
+            {/* Why use MCP */}
+            <div className="bg-white rounded-3xl p-10 border-2 border-indigo-100 shadow-xl flex flex-col items-start relative overflow-hidden animate-fade-in">
+              <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-gradient-to-br from-indigo-200/40 to-pink-200/40 rounded-full blur-2xl" />
+              <div className="flex items-center gap-3 mb-4">
+                <Star className="w-8 h-8 text-indigo-500 bg-indigo-100 rounded-xl p-1.5 shadow" />
+                <h3 className="text-2xl font-bold text-pink-600">Why use MCP?</h3>
+              </div>
+              <ul className="space-y-4 mt-2 w-full">
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-green-500 mt-1" />
+                  <span className="text-slate-700 text-base font-medium"><span className="font-semibold text-indigo-600">Supercharge productivity:</span> Let AI handle repetitive image management tasks.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-green-500 mt-1" />
+                  <span className="text-slate-700 text-base font-medium"><span className="font-semibold text-pink-500">Seamless automation:</span> Integrate DobbyDrive with your creative, marketing, or dev workflows.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-green-500 mt-1" />
+                  <span className="text-slate-700 text-base font-medium"><span className="font-semibold text-indigo-600">Open & flexible:</span> Works with any MCP-compatible agent, script, or tool.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-green-500 mt-1" />
+                  <span className="text-slate-700 text-base font-medium"><span className="font-semibold text-pink-500">Future-ready:</span> Stay ahead with AI-powered file management and automation.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* How It Works Section */}
       <section id="how-it-works" className="py-20 lg:py-28 bg-gradient-to-br from-white via-teal-50 to-indigo-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
