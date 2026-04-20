@@ -24,19 +24,21 @@ export default function Navbar({ onAuthClick }) {
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 shadow-lg shadow-indigo-500/25">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-teal-400 via-indigo-500 to-pink-500 shadow-lg shadow-teal-400/20">
             <HardDrive className="text-white" size={20} />
           </div>
+          </div>
           <div>
-            <p className={`text-lg font-semibold transition-colors ${isScrolled ? 'text-slate-900' : 'text-slate-900 lg:text-white'}`}>Drive</p>
-            <p className={`text-xs transition-colors ${isScrolled ? 'text-slate-500' : 'text-slate-400 lg:text-slate-500'}`}>Image Manager</p>
+            <p className={`text-lg font-semibold transition-colors ${isScrolled ? 'text-indigo-700' : 'text-indigo-700 lg:text-white'}`}>Drive</p>
+            <p className={`text-xs transition-colors ${isScrolled ? 'text-teal-500' : 'text-pink-400 lg:text-teal-400'}`}>Image Manager</p>
           </div>
         </div>
 
         {/* Desktop Navigation */}
         <div className={`hidden items-center gap-8 text-sm font-medium md:flex ${isScrolled ? 'text-slate-600' : 'text-slate-600 lg:text-slate-300'}`}>
-          <a href="#features" className="hover:text-indigo-600 transition-colors">Product</a>
-          <a href="#how-it-works" className="hover:text-indigo-600 transition-colors">How it works</a>
-          <a href="#" className="hover:text-indigo-600 transition-colors">Pricing</a>
+          <a href="#features" className="hover:text-teal-500 transition-colors">Product</a>
+          <a href="#how-it-works" className="hover:text-pink-500 transition-colors">How it works</a>
+          <a href="#" className="hover:text-orange-500 transition-colors">Pricing</a>
         </div>
 
         {/* Desktop Auth Buttons */}
@@ -44,10 +46,10 @@ export default function Navbar({ onAuthClick }) {
           {user ? (
             <div className={`flex items-center gap-3 rounded-2xl border px-3 py-2 text-sm shadow-sm transition-all ${
               isScrolled 
-                ? 'border-slate-200 bg-slate-50 text-slate-700' 
+                ? 'border-teal-200 bg-teal-50 text-teal-700' 
                 : 'border-white/20 bg-white/10 text-white'
             }`}>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 text-white font-bold">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-orange-400 text-white font-bold">
                 {user.name.charAt(0).toUpperCase()}
               </div>
               <span className="font-medium">{user.name}</span>

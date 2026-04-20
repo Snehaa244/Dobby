@@ -8,6 +8,7 @@ export default function UploadImageModal({ isOpen, onClose, folderId, onSuccess 
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
 
   if (!isOpen) return null;
@@ -20,13 +21,14 @@ export default function UploadImageModal({ isOpen, onClose, folderId, onSuccess 
         return;
       }
       setFile(selectedFile);
-      if (!name) setName(selectedFile.name);
+      if (!name) setName(selectedFile.name.replace(/\.[^/.]+$/, ""));
       setError('');
     }
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
+    setIsDragging(false);
     const droppedFile = e.dataTransfer.files[0];
     if (droppedFile) {
       if (!droppedFile.type.startsWith('image/')) {
@@ -34,13 +36,19 @@ export default function UploadImageModal({ isOpen, onClose, folderId, onSuccess 
         return;
       }
       setFile(droppedFile);
-      if (!name) setName(droppedFile.name);
+      if (!name) setName(droppedFile.name.replace(/\.[^/.]+$/, ""));
       setError('');
     }
   };
 
   const handleDragOver = (e) => {
     e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
   };
 
   const handleSubmit = async (e) => {
@@ -55,7 +63,7 @@ export default function UploadImageModal({ isOpen, onClose, folderId, onSuccess 
 
     const formData = new FormData();
     formData.append('image', file);
-    formData.append('name', name);
+    formData.append('name', name || file.name);
     if (folderId) formData.append('folderId', folderId);
 
     try {
@@ -74,63 +82,75 @@ export default function UploadImageModal({ isOpen, onClose, folderId, onSuccess 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-900/40 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl w-full max-w-md shadow-xl overflow-hidden glass">
-        <div className="flex justify-between items-center p-4 border-b border-zinc-100">
-          <h2 className="text-lg font-semibold text-zinc-900">Upload Image</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
+        <div className="flex justify-between items-center p-5 border-b border-slate-100">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
+              <UploadCloud className="text-indigo-600" size={20} />
+            </div>
+            <h2 className="text-lg font-semibold text-slate-900">Upload Image</h2>
+          </div>
           <button 
             onClick={onClose}
-            className="text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 p-1.5 rounded-full transition-colors"
+            className="text-slate-400 hover:text-slate-600 hover:bg-slate-100 p-2 rounded-xl transition-colors"
           >
             <X size={20} />
           </button>
         </div>
         
         <form onSubmit={handleSubmit} className="p-5">
-          {error && <div className="mb-4 text-sm text-red-500 bg-red-50 p-2.5 rounded-lg border border-red-100">{error}</div>}
+          {error && <div className="mb-4 text-sm text-red-500 bg-red-50 p-3 rounded-xl border border-red-100">{error}</div>}
           
           {!file ? (
             <div 
-              className="border-2 border-dashed border-zinc-300 rounded-2xl p-8 text-center hover:bg-zinc-50 hover:border-brand-400 transition-colors cursor-pointer group"
+              className={`border-2 border-dashed rounded-2xl p-10 text-center transition-all duration-200 cursor-pointer group ${
+                isDragging 
+                  ? 'border-indigo-500 bg-indigo-50' 
+                  : 'border-slate-300 hover:border-indigo-400 hover:bg-slate-50'
+              }`}
               onClick={() => fileInputRef.current.click()}
               onDrop={handleDrop}
               onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
             >
-              <div className="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-50 group-hover:text-brand-500 transition-colors">
-                <UploadCloud size={32} className="text-zinc-400 group-hover:text-brand-500 transition-colors" />
+              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 transition-colors ${
+                isDragging ? 'bg-indigo-100' : 'bg-slate-100 group-hover:bg-indigo-50'
+              }`}>
+                <UploadCloud size={32} className={`transition-colors ${isDragging ? 'text-indigo-500' : 'text-slate-400 group-hover:text-indigo-500'}`} />
               </div>
-              <p className="text-sm font-medium text-zinc-700">Click or drag image here</p>
-              <p className="text-xs text-zinc-500 mt-1">Supports JPG, PNG, WEBP, GIF</p>
+              <p className="text-sm font-semibold text-slate-700">Click or drag image here</p>
+              <p className="text-xs text-slate-500 mt-2">Supports JPG, PNG, WEBP, GIF</p>
             </div>
           ) : (
             <div className="space-y-4">
-              <div className="flex items-center gap-4 p-3 bg-zinc-50 rounded-xl border border-zinc-200">
-                <div className="w-12 h-12 bg-zinc-200 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                <div className="w-14 h-14 bg-slate-200 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0">
                   <img src={URL.createObjectURL(file)} alt="preview" className="w-full h-full object-cover" />
                 </div>
-                <div className="flex-1 truncate">
-                  <p className="text-sm font-medium text-zinc-800 truncate">{file.name}</p>
-                  <p className="text-xs text-zinc-500">{formatBytes(file.size)}</p>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-slate-800 truncate">{file.name}</p>
+                  <p className="text-xs text-slate-500 mt-0.5">{formatBytes(file.size)}</p>
                 </div>
                 <button 
                   type="button" 
                   onClick={() => setFile(null)}
-                  className="text-zinc-400 hover:text-red-500 p-1"
+                  className="text-slate-400 hover:text-red-500 p-2 hover:bg-red-50 rounded-xl transition-colors"
                 >
-                  <X size={16} />
+                  <X size={18} />
                 </button>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-zinc-700 mb-1">Image Name</label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">Image Name</label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-400">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
                     <ImageIcon size={18} />
                   </div>
                   <input
                     type="text"
                     required
-                    className="pl-9 block w-full outline-none p-2.5 text-sm border-zinc-200 border rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all bg-white"
+                    className="pl-11 block w-full outline-none py-3 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all bg-slate-50 hover:bg-white"
                     placeholder="Image name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -152,16 +172,16 @@ export default function UploadImageModal({ isOpen, onClose, folderId, onSuccess 
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-zinc-200 text-zinc-700 rounded-xl text-sm font-medium hover:bg-zinc-50 transition-colors"
+              className="px-5 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading || !file}
-              className="px-4 py-2 border border-transparent text-white rounded-xl text-sm font-medium bg-brand-600 hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm shadow-brand-500/20"
+              className="px-5 py-2.5 border border-transparent text-white rounded-xl text-sm font-medium bg-slate-900 hover:bg-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-slate-900/20"
             >
-              {loading ? 'Uploading...' : 'Upload'}
+              {loading ? 'Uploading...' : 'Upload Image'}
             </button>
           </div>
         </form>
