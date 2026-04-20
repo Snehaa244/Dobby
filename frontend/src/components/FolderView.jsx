@@ -1,10 +1,43 @@
-import { Folder, Image as ImageIcon, ChevronRight, Home, MoreVertical, Download, Trash2, Eye } from 'lucide-react';
+import { Folder, Image as ImageIcon, ChevronRight, Home, MoreVertical, Download, Trash2, Eye, Star } from 'lucide-react';
+import api from '../utils/api';
 import { formatBytes } from '../utils/formatSize';
 import { useState } from 'react';
 
-export default function FolderView({ folders, images, breadcrumbs, onSelectFolder, viewMode = 'grid' }) {
+export default function FolderView({ folders, images, breadcrumbs, onSelectFolder, viewMode = 'grid', refreshData }) {
   const [previewImage, setPreviewImage] = useState(null);
   const [hoveredItem, setHoveredItem] = useState(null);
+
+  // Delete folder
+  const handleDeleteFolder = async (folderId, e) => {
+    e.stopPropagation();
+    if (window.confirm('Delete this folder and all its contents?')) {
+      await api.delete(`/folders/${folderId}`);
+      refreshData && refreshData();
+    }
+  };
+
+  // Star/unstar folder
+  const handleStarFolder = async (folderId, starred, e) => {
+    e.stopPropagation();
+    await api.patch(`/folders/${folderId}/star`);
+    refreshData && refreshData();
+  };
+
+  // Delete image
+  const handleDeleteImage = async (imageId, e) => {
+    e.stopPropagation();
+    if (window.confirm('Delete this image?')) {
+      await api.delete(`/images/${imageId}`);
+      refreshData && refreshData();
+    }
+  };
+
+  // Star/unstar image
+  const handleStarImage = async (imageId, starred, e) => {
+    e.stopPropagation();
+    await api.patch(`/images/${imageId}/star`);
+    refreshData && refreshData();
+  };
 
   if (folders.length === 0 && images.length === 0) {
     return (
@@ -65,12 +98,22 @@ export default function FolderView({ folders, images, breadcrumbs, onSelectFolde
                       <div className="w-14 h-14 rounded-2xl bg-indigo-50 flex items-center justify-center">
                         <Folder size={28} className="text-pink-500 fill-pink-100" />
                       </div>
-                      <button 
-                        className="p-2 text-slate-300 hover:text-slate-600 hover:bg-slate-100 rounded-xl opacity-0 group-hover:opacity-100 transition-all"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <MoreVertical size={16} />
-                      </button>
+                      <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-all">
+                        <button
+                          className={`p-2 rounded-xl ${folder.starred ? 'text-yellow-400' : 'text-slate-300 hover:text-yellow-400'} hover:bg-yellow-50`}
+                          title={folder.starred ? 'Unstar' : 'Star'}
+                          onClick={e => handleStarFolder(folder._id, folder.starred, e)}
+                        >
+                          <Star size={16} fill={folder.starred ? '#facc15' : 'none'} />
+                        </button>
+                        <button
+                          className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-xl"
+                          title="Delete"
+                          onClick={e => handleDeleteFolder(folder._id, e)}
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
                     </div>
                     <div className="mt-auto">
                       <h4 className="font-semibold text-slate-800 truncate" title={folder.name}>{folder.name}</h4>
@@ -86,12 +129,22 @@ export default function FolderView({ folders, images, breadcrumbs, onSelectFolde
                       <h4 className="font-semibold text-slate-800 truncate">{folder.name}</h4>
                       <p className="text-xs text-slate-500">{formatBytes(folder.size || 0)}</p>
                     </div>
-                    <button 
-                      className="p-2 text-slate-300 hover:text-slate-600 hover:bg-slate-100 rounded-xl opacity-0 group-hover:opacity-100 transition-all"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <MoreVertical size={16} />
-                    </button>
+                    <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-all">
+                      <button
+                        className={`p-2 rounded-xl ${folder.starred ? 'text-yellow-400' : 'text-slate-300 hover:text-yellow-400'} hover:bg-yellow-50`}
+                        title={folder.starred ? 'Unstar' : 'Star'}
+                        onClick={e => handleStarFolder(folder._id, folder.starred, e)}
+                      >
+                        <Star size={16} fill={folder.starred ? '#facc15' : 'none'} />
+                      </button>
+                      <button
+                        className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-xl"
+                        title="Delete"
+                        onClick={e => handleDeleteFolder(folder._id, e)}
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
                   </>
                 )}
               </div>
@@ -129,6 +182,18 @@ export default function FolderView({ folders, images, breadcrumbs, onSelectFolde
                       />
                       {/* Hover overlay */}
                       <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/20 transition-colors flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
+                        <button className="p-2 bg-white/90 rounded-xl text-yellow-400 hover:bg-yellow-50 transition-colors shadow-lg"
+                          title={image.starred ? 'Unstar' : 'Star'}
+                          onClick={e => handleStarImage(image._id, image.starred, e)}
+                        >
+                          <Star size={16} fill={image.starred ? '#facc15' : 'none'} />
+                        </button>
+                        <button className="p-2 bg-white/90 rounded-xl text-red-500 hover:bg-red-50 transition-colors shadow-lg"
+                          title="Delete"
+                          onClick={e => handleDeleteImage(image._id, e)}
+                        >
+                          <Trash2 size={16} />
+                        </button>
                         <button className="p-2 bg-white/90 rounded-xl text-slate-700 hover:bg-white transition-colors shadow-lg">
                           <Eye size={16} />
                         </button>
@@ -157,14 +222,25 @@ export default function FolderView({ folders, images, breadcrumbs, onSelectFolde
                       <p className="text-xs text-slate-500">{formatBytes(image.size)}</p>
                     </div>
                     <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all">
+                      <button
+                        className={`p-2 rounded-xl ${image.starred ? 'text-yellow-400' : 'text-slate-300 hover:text-yellow-400'} hover:bg-yellow-50`}
+                        title={image.starred ? 'Unstar' : 'Star'}
+                        onClick={e => handleStarImage(image._id, image.starred, e)}
+                      >
+                        <Star size={16} fill={image.starred ? '#facc15' : 'none'} />
+                      </button>
+                      <button
+                        className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl"
+                        title="Delete"
+                        onClick={e => handleDeleteImage(image._id, e)}
+                      >
+                        <Trash2 size={16} />
+                      </button>
                       <button className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl">
                         <Eye size={16} />
                       </button>
                       <button className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl">
                         <Download size={16} />
-                      </button>
-                      <button className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl">
-                        <Trash2 size={16} />
                       </button>
                     </div>
                   </>
