@@ -365,12 +365,12 @@ export default function Landing() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 lg:py-32 bg-gradient-to-br from-indigo-700 via-pink-500 to-teal-400 relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[120vw] h-96 bg-gradient-to-br from-white/30 via-pink-200/20 to-indigo-200/10 rounded-full blur-3xl opacity-60" />
+      <section className="py-24 lg:py-32 bg-gradient-to-br from-blue-700 via-blue-500 to-cyan-400 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[120vw] h-96 bg-gradient-to-br from-white/30 via-blue-200/20 to-cyan-200/10 rounded-full blur-3xl opacity-60" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="relative overflow-hidden rounded-3xl bg-white/90 p-12 lg:p-16 shadow-2xl border-2 border-white/60 backdrop-blur-xl">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-pink-200/40 to-indigo-200/40 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-56 h-56 bg-gradient-to-br from-teal-200/30 to-pink-200/20 rounded-full blur-3xl" />
+            <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-blue-200/40 to-cyan-200/40 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-56 h-56 bg-gradient-to-br from-cyan-200/30 to-blue-200/20 rounded-full blur-3xl" />
             <div className="relative text-center max-w-2xl mx-auto">
               <h2 className="text-4xl font-extrabold tracking-tight text-indigo-700 sm:text-5xl drop-shadow-lg">
                 Ready to organize your images?
