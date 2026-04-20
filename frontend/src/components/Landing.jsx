@@ -291,30 +291,30 @@ export default function Landing() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 lg:py-28 bg-slate-900">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-800 to-slate-900 p-12 lg:p-16">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-full blur-3xl" />
-            
+      <section className="py-24 lg:py-32 bg-gradient-to-br from-indigo-700 via-pink-500 to-teal-400 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[120vw] h-96 bg-gradient-to-br from-white/30 via-pink-200/20 to-indigo-200/10 rounded-full blur-3xl opacity-60" />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="relative overflow-hidden rounded-3xl bg-white/90 p-12 lg:p-16 shadow-2xl border-2 border-white/60 backdrop-blur-xl">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-pink-200/40 to-indigo-200/40 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-56 h-56 bg-gradient-to-br from-teal-200/30 to-pink-200/20 rounded-full blur-3xl" />
             <div className="relative text-center max-w-2xl mx-auto">
-              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              <h2 className="text-4xl font-extrabold tracking-tight text-indigo-700 sm:text-5xl drop-shadow-lg">
                 Ready to organize your images?
               </h2>
-              <p className="mt-4 text-lg text-slate-300">
-                Join thousands of teams who use Drive to manage their image collections efficiently.
+              <p className="mt-4 text-lg text-slate-700 font-medium">
+                Join thousands of teams who use <span className="text-pink-600 font-bold">DobbyDrive</span> to manage their image collections efficiently.
               </p>
               <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button
                   onClick={() => handleAuthClick('signup')}
-                  className="inline-flex items-center justify-center rounded-2xl bg-white px-8 py-4 text-base font-semibold text-slate-900 hover:bg-slate-100 transition-all duration-200"
+                  className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-pink-500 px-8 py-4 text-base font-semibold text-white shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200"
                 >
                   Start Free Today
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </button>
                 <button
                   onClick={() => handleAuthClick('login')}
-                  className="inline-flex items-center justify-center rounded-2xl border border-slate-600 px-8 py-4 text-base font-semibold text-white hover:bg-slate-800 transition-all duration-200"
+                  className="inline-flex items-center justify-center rounded-2xl border-2 border-indigo-400 px-8 py-4 text-base font-semibold text-indigo-700 bg-white hover:bg-indigo-50 hover:border-pink-400 transition-all duration-200"
                 >
                   Sign In
                 </button>
@@ -325,18 +325,23 @@ export default function Landing() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 bg-white border-t border-slate-200">
+      <footer className="py-14 bg-gradient-to-br from-white via-indigo-50 to-pink-50 border-t border-indigo-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
-                <HardDrive className="w-5 h-5 text-white" />
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-500 via-indigo-500 to-teal-400 flex items-center justify-center shadow-lg">
+                <HardDrive className="w-6 h-6 text-white" />
               </div>
-              <span className="text-lg font-semibold text-slate-900">Drive</span>
+              <span className="text-xl font-extrabold text-indigo-700 tracking-tight">DobbyDrive</span>
             </div>
-            <p className="text-sm text-slate-500">
-              © 2026 Drive. Built for modern image management.
+            <p className="text-base text-indigo-400 font-medium">
+              © 2026 DobbyDrive. Built for modern image management.
             </p>
+            <div className="flex gap-3 mt-4 md:mt-0">
+              <a href="#features" className="text-indigo-400 hover:text-pink-500 font-semibold transition-colors">Features</a>
+              <a href="#how-it-works" className="text-indigo-400 hover:text-pink-500 font-semibold transition-colors">How it works</a>
+              <a href="#" className="text-indigo-400 hover:text-pink-500 font-semibold transition-colors">Pricing</a>
+            </div>
           </div>
         </div>
       </footer>
