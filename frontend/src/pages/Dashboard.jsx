@@ -17,6 +17,7 @@ export default function Dashboard() {
   const [folderTree, setFolderTree] = useState([]);
   const [viewMode, setViewMode] = useState('grid');
   const [searchQuery, setSearchQuery] = useState('');
+  const [showStarred, setShowStarred] = useState(false);
   
   const [isFolderModalOpen, setIsFolderModalOpen] = useState(false);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
@@ -51,13 +52,22 @@ export default function Dashboard() {
     refreshData();
   }, [currentFolderId]);
 
+  // Filter folders by search query
+  const filteredFolders = showStarred
+    ? folders.filter(f => f.starred && (!searchQuery || f.name.toLowerCase().includes(searchQuery.toLowerCase())))
+    : searchQuery
+      ? folders.filter(f => f.name.toLowerCase().includes(searchQuery.toLowerCase()))
+      : folders;
+
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden">
       {/* Sidebar */}
       <Sidebar 
         tree={folderTree} 
         currentFolderId={currentFolderId} 
-        onSelectFolder={setCurrentFolderId} 
+        onSelectFolder={setCurrentFolderId}
+        showStarred={showStarred}
+        setShowStarred={setShowStarred}
       />
 
       {/* Main Content */}
@@ -139,12 +149,13 @@ export default function Dashboard() {
         {/* Folder Content Area */}
         <main className="flex-1 overflow-y-auto p-6 bg-slate-50/50">
           <FolderView 
-            folders={folders} 
-            images={images} 
+            folders={filteredFolders} 
+            images={showStarred ? images.filter(img => img.starred) : images} 
             breadcrumbs={breadcrumbs}
             currentFolderId={currentFolderId}
             onSelectFolder={setCurrentFolderId}
             viewMode={viewMode}
+            refreshData={refreshData}
           />
         </main>
       </div>

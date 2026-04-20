@@ -64,7 +64,7 @@ function TreeNode({ node, level = 0, currentFolderId, onSelectFolder }) {
   );
 }
 
-export default function Sidebar({ tree, currentFolderId, onSelectFolder }) {
+export default function Sidebar({ tree, currentFolderId, onSelectFolder, showStarred, setShowStarred }) {
   return (
     <div className="w-72 border-r border-slate-200 bg-white hidden md:flex flex-col shrink-0">
       {/* Logo Area */}
@@ -98,8 +98,11 @@ export default function Sidebar({ tree, currentFolderId, onSelectFolder }) {
               <HardDrive size={18} className={currentFolderId === null ? "text-indigo-500" : "text-slate-400"} />
               My Drive
             </div>
-            <div className="flex items-center gap-3 py-2.5 px-3 rounded-xl cursor-pointer text-sm text-slate-600 hover:bg-slate-100 transition-all duration-200">
-              <Star size={18} className="text-slate-400" />
+            <div
+              className={`flex items-center gap-3 py-2.5 px-3 rounded-xl cursor-pointer text-sm transition-all duration-200 ${showStarred ? 'bg-yellow-50 text-yellow-700 font-semibold' : 'text-slate-600 hover:bg-slate-100'}`}
+              onClick={() => setShowStarred && setShowStarred(!showStarred)}
+            >
+              <Star size={18} className={showStarred ? 'text-yellow-400' : 'text-slate-400'} />
               Starred
             </div>
             <div className="flex items-center gap-3 py-2.5 px-3 rounded-xl cursor-pointer text-sm text-slate-600 hover:bg-slate-100 transition-all duration-200">
