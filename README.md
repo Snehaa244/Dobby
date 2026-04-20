@@ -1,6 +1,6 @@
 # 🚀 DobbyDrive
 
-> A powerful, modern file management system inspired by Google Drive — built with the MERN stack and supercharged with AI capabilities via MCP (Model Context Protocol).
+> A powerful, modern file management system — built with the MERN stack and supercharged with AI capabilities via MCP (Model Context Protocol).
 
 ---
 
@@ -56,7 +56,7 @@ Create a `.env` file in the `backend` directory:
 
 ```env
 PORT=5000
-MONGO_URI=mongodb://localhost:27017/dobby-drive
+MONGO_URI=
 JWT_SECRET=your-super-secret-jwt-key
 ```
 
@@ -252,6 +252,6 @@ MIT License — feel free to use this project for learning, building, or inspira
 
 ### 🌟 Star this repo if you found it useful!
 
-Made with ❤️ by **DobbyDrive Team**
+Made with ❤️ by **Sneha Parmar**
 
 </div>
