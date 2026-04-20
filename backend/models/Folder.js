@@ -16,6 +16,10 @@ const folderSchema = mongoose.Schema(
       ref: 'User',
       required: true,
     },
+    starred: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

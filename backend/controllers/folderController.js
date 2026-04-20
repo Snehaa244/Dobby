@@ -120,8 +120,45 @@ const getFolderTree = async (req, res) => {
   }
 };
 
+// Delete a folder (and its subfolders/images)
+const deleteFolder = async (req, res) => {
+  try {
+    const folder = await Folder.findOne({ _id: req.params.id, user: req.user._id });
+    if (!folder) return res.status(404).json({ message: 'Folder not found' });
+
+    // Recursively delete subfolders and images
+    const deleteRecursively = async (folderId) => {
+      const subfolders = await Folder.find({ parent: folderId, user: req.user._id });
+      for (const sub of subfolders) {
+        await deleteRecursively(sub._id);
+      }
+      await Image.deleteMany({ folder: folderId, user: req.user._id });
+      await Folder.deleteOne({ _id: folderId, user: req.user._id });
+    };
+    await deleteRecursively(folder._id);
+    res.json({ message: 'Folder and contents deleted' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Star/unstar a folder
+const toggleStarFolder = async (req, res) => {
+  try {
+    const folder = await Folder.findOne({ _id: req.params.id, user: req.user._id });
+    if (!folder) return res.status(404).json({ message: 'Folder not found' });
+    folder.starred = !folder.starred;
+    await folder.save();
+    res.json({ starred: folder.starred });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   createFolder,
   getFolders,
-  getFolderTree
+  getFolderTree,
+  deleteFolder,
+  toggleStarFolder
 };

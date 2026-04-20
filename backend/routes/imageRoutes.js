@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const Image = require('../models/Image');
+const { deleteImage, toggleStarImage } = require('../controllers/imageController');
 const { protect } = require('../middleware/auth');
 
 // Setup multer storage
@@ -63,5 +64,10 @@ router.post('/', protect, upload.single('image'), async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+// Delete image
+router.delete('/:id', protect, deleteImage);
+// Star/unstar image
+router.patch('/:id/star', protect, toggleStarImage);
 
 module.exports = router;
