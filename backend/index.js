@@ -14,9 +14,18 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: '*', // Allow all origins for now to solve the connection issue
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.use(morgan('dev'));
+
+// Health check route
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'OK', message: 'Server is running' });
+});
 
 // Make uploads directory static
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -29,9 +38,9 @@ app.use('/api/images', require('./routes/imageRoutes'));
 // Basic error handler
 app.use((err, req, res, next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-  res.status(statusCode);
-  res.json({
-    message: err.message,
+  console.error(`Error [${statusCode}]: ${err.message}`);
+  res.status(statusCode).json({
+    message: err.message || 'Internal Server Error',
     stack: process.env.NODE_ENV === 'production' ? null : err.stack,
   });
 });

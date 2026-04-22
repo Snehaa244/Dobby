@@ -43,7 +43,12 @@ export default function AuthModal({ isOpen, onClose, initialMode, onSuccess }) {
       }
       onSuccess();
     } catch (err) {
-      setError(err.response?.data?.message || `${mode === 'login' ? 'Login' : 'Signup'} failed`);
+      console.error('Handled Auth Error:', err);
+      if (!err.response) {
+        setError('Network Error: Could not reach the server. Please check if the backend is running.');
+      } else {
+        setError(err.response?.data?.message || `${mode === 'login' ? 'Login' : 'Signup'} failed`);
+      }
     } finally {
       setIsLoading(false);
     }

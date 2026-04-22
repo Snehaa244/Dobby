@@ -1,7 +1,6 @@
 
 import { createContext, useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-const API_URL = import.meta.env.VITE_API_URL;
+import api from '../utils/api';
 
 const AuthContext = createContext();
 
@@ -20,15 +19,35 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const { data } = await axios.post(`${API_URL}/auth/login`, { email, password });
-    localStorage.setItem('userInfo', JSON.stringify(data));
-    setUser(data);
+    try {
+      const { data } = await api.post(`/auth/login`, { email, password });
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      setUser(data);
+    } catch (error) {
+      console.error('Login error detail:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        url: error.config?.url
+      });
+      throw error;
+    }
   };
 
   const signup = async (name, email, password) => {
-    const { data } = await axios.post(`${API_URL}/auth/signup`, { name, email, password });
-    localStorage.setItem('userInfo', JSON.stringify(data));
-    setUser(data);
+    try {
+      const { data } = await api.post(`/auth/signup`, { name, email, password });
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      setUser(data);
+    } catch (error) {
+      console.error('Signup error detail:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        url: error.config?.url
+      });
+      throw error;
+    }
   };
 
   const logout = () => {
