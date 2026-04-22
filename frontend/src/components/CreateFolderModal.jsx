@@ -15,7 +15,7 @@ export default function CreateFolderModal({ isOpen, onClose, parentId, onSuccess
     setError('');
     
     try {
-      await api.post('/folders', { name, parentId });
+      await api.post('folders', { name, parentId });
       setName('');
       onSuccess();
       onClose();

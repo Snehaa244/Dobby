@@ -3,6 +3,8 @@ import api from '../utils/api';
 import { formatBytes } from '../utils/formatSize';
 import { useState } from 'react';
 
+const ASSET_URL = import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '');
+
 export default function FolderView({ folders, images, breadcrumbs, onSelectFolder, viewMode = 'grid', refreshData }) {
   const [previewImage, setPreviewImage] = useState(null);
   const [hoveredItem, setHoveredItem] = useState(null);
@@ -11,7 +13,7 @@ export default function FolderView({ folders, images, breadcrumbs, onSelectFolde
   const handleDeleteFolder = async (folderId, e) => {
     e.stopPropagation();
     if (window.confirm('Delete this folder and all its contents?')) {
-      await api.delete(`/folders/${folderId}`);
+      await api.delete(`folders/${folderId}`);
       refreshData && refreshData();
     }
   };
@@ -19,7 +21,7 @@ export default function FolderView({ folders, images, breadcrumbs, onSelectFolde
   // Star/unstar folder
   const handleStarFolder = async (folderId, starred, e) => {
     e.stopPropagation();
-    await api.patch(`/folders/${folderId}/star`);
+    await api.patch(`folders/${folderId}/star`);
     refreshData && refreshData();
   };
 
@@ -27,7 +29,7 @@ export default function FolderView({ folders, images, breadcrumbs, onSelectFolde
   const handleDeleteImage = async (imageId, e) => {
     e.stopPropagation();
     if (window.confirm('Delete this image?')) {
-      await api.delete(`/images/${imageId}`);
+      await api.delete(`images/${imageId}`);
       refreshData && refreshData();
     }
   };
@@ -35,7 +37,7 @@ export default function FolderView({ folders, images, breadcrumbs, onSelectFolde
   // Star/unstar image
   const handleStarImage = async (imageId, starred, e) => {
     e.stopPropagation();
-    await api.patch(`/images/${imageId}/star`);
+    await api.patch(`images/${imageId}/star`);
     refreshData && refreshData();
   };
 
@@ -175,7 +177,7 @@ export default function FolderView({ folders, images, breadcrumbs, onSelectFolde
                   <>
                     <div className="aspect-square bg-slate-100 relative overflow-hidden flex-shrink-0">
                       <img 
-                        src={`http://localhost:5000${image.url}`} 
+                        src={`${ASSET_URL}${image.url}`} 
                         alt={image.name} 
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
@@ -211,7 +213,7 @@ export default function FolderView({ folders, images, breadcrumbs, onSelectFolde
                   <>
                     <div className="w-12 h-12 rounded-xl bg-slate-100 overflow-hidden flex-shrink-0">
                       <img 
-                        src={`http://localhost:5000${image.url}`} 
+                        src={`${ASSET_URL}${image.url}`} 
                         alt={image.name} 
                         className="w-full h-full object-cover"
                         loading="lazy"
@@ -280,7 +282,7 @@ export default function FolderView({ folders, images, breadcrumbs, onSelectFolde
             </div>
             <div className="flex-1 overflow-auto flex items-center justify-center p-6 bg-slate-50">
               <img 
-                src={`http://localhost:5000${previewImage.url}`} 
+                src={`${ASSET_URL}${previewImage.url}`} 
                 alt={previewImage.name} 
                 className="max-w-full max-h-full object-contain rounded-xl shadow-lg"
               />

@@ -67,7 +67,7 @@ export default function UploadImageModal({ isOpen, onClose, folderId, onSuccess 
     if (folderId) formData.append('folderId', folderId);
 
     try {
-      await api.post('/images', formData, {
+      await api.post('images', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setFile(null);
