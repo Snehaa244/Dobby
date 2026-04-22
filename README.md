@@ -183,8 +183,8 @@ Once the MCP server is running, AI agents can execute commands like:
 
 Want to try it quickly? Create a new account or use:
 
-- **Email:** `test@dobby.com`
-- **Password:** `password123`
+- **Email:** `testdobby@gmail.com`
+- **Password:** `password@123`
 
 ---
 
